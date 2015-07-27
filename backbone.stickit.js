@@ -606,10 +606,11 @@
       // Support Backbone.Collection and deserialize.
       if (optList instanceof Backbone.Collection) {
         var collection = optList;
-        var refreshSelectOptions = function() {
+        var __refreshSelectOptions = function() {
           var currentVal = getAttr(model, options.observe, options);
           applyViewFn.call(this, options.update, $el, currentVal, model, options);
         };
+        var refreshSelectOptions = _.debounce(__refreshSelectOptions, 50);
         // We need to call this function after unstickit and after an update so we don't end up
         // with multiple listeners doing the same thing
         var removeCollectionListeners = function() {
